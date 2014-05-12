@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Address book</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <link href="css/zencontact.css" rel="stylesheet" media="screen">
+</head>
+<body ng-app>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="#">Address Book</a>
+            <ul class="nav">
+                <li class="active">
+                    <a href="contactList.html">My Contacts</a>
+                </li>
+                <li>
+                    <a href="contactEdit.html">Add new contact</a>
+                </li>
+            </ul>
+            <ul class="nav pull-right">
+                <li><a href="#">Login</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="hero-unit">
+        <h1>Address Book</h1>
+
+        <h2>Taking care of your people, one at a time.</h2>
+    </div>
+    <div class="row" contact-list>
+        <div class="span4" >
+            <div class="well">
+                <h2>Contacts</h2>
+
+                <form class="form-search">
+                    <div class="input-append">
+                        <input type="text" class="input-medium search-query" ng-model="search">
+                        <button type="submit" class="btn"><i class="icon-search"></i> Search</button>
+                    </div>
+                </form>
+                <p>Searching for {{search}}</p>
+
+                <ul class="unstyled">
+                  <li ng-repeat="contact in contactList.contacts | doSearch:search | orderBy:'lastName'"><a href="">{{contact.firstName}} {{contact.lastName | uppercase}}</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="span8">
+            <div class="row">
+                <vcard contact="contact" ng-repeat="contact in contactList.contacts | doSearch:search | orderBy:'lastName'"></vcard>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="packages/shadow_dom/shadow_dom.min.js"></script>
+<script type="application/dart" src="addressbook.dart"></script>
+<script src="packages/browser/dart.js"></script>
+</body>
+</html>

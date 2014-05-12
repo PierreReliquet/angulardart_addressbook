@@ -1,0 +1,8 @@
+name: angulardart_addressbook
+version: 0.0.1
+author: Pierre Reliquet
+description: An address book developped with AngularDart to show how rapidly we can create reactive app using Dart & Angular
+dependencies:
+  angular: 0.11.0
+  browser: any
+  shadow_dom: any
