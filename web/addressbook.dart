@@ -1,5 +1,6 @@
 import 'package:angular/application_factory.dart';
 import 'package:angular/angular.dart';
+import 'dart:html' as dom;
 
 void main() {
   applicationFactory()
@@ -21,6 +22,7 @@ class AddressBook extends Module {
   AddressBook() {
     bind(ContactList);
     bind(SearchFilter);
+    bind(EnterView);
     bind(VCard);
     // At the beginning the service was in here but it has been removed to
     // show how to use other existing modules
@@ -77,6 +79,17 @@ class SearchFilter {
             c.lastName.toLowerCase().contains(search.toLowerCase()))
         ).toList();
   }
+}
+
+// WARNING here we do not have anymore the translation camelCase => camel-case
+@Decorator(selector: '[enter-view]')
+class EnterView {
+  dom.Element _elmt;
+
+  EnterView(this._elmt) {
+    _elmt.onClick.listen((event) => print('clicked'));
+  }
+
 }
 
 /**
