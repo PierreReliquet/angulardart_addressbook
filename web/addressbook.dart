@@ -12,6 +12,22 @@ void main() {
       // Module declaration order does not matter
 }
 
+// Routing
+void addressBookRouter(Router router, RouteViewFactory views) {
+  views.configure({
+    'add': ngRoute(
+        path:'/add',
+        view: 'partials/contactAdd.html'),
+    'edit': ngRoute(
+          path: '/edit/:id',
+          view: 'partials/contactEdit.html'),
+    'list': ngRoute(
+        path: '/list',
+        view: 'partials/contactList.html',
+        defaultRoute : true)
+  });
+}
+
 /**
  * The address book module contains the controllers, formatter and components.
  *
@@ -21,12 +37,18 @@ void main() {
 class AddressBook extends Module {
   AddressBook() {
     bind(ContactList);
+    bind(ContactEdit);
+    bind(ContactAdd);
     bind(SearchFilter);
     bind(EnterView);
     bind(VCard);
+    bind(RouteInitializerFn, toValue: addressBookRouter);
     // At the beginning the service was in here but it has been removed to
     // show how to use other existing modules
     //bind(ContactService);
+
+    // Required otherwise angulardart does not know how to interprete the route
+    bind(NgRoutingUsePushState, toFactory: (_) => new NgRoutingUsePushState.value(false));
   }
 }
 
@@ -56,6 +78,28 @@ class ContactList {
     return contact.firstName.toLowerCase().contains(search.toLowerCase()) ||
         contact.lastName.toLowerCase().contains(search.toLowerCase());
   }
+}
+
+@Controller(
+    selector: '[contact-edit]',
+    publishAs: 'contactEdit'
+)
+class ContactEdit {
+  Contact contact;
+  ContactService contactService;
+  RouteProvider routeProvider;
+
+  ContactEdit(this.contactService, this.routeProvider) {
+    contact = contactService.contacts.where((Contact c) => c.id == int.parse(routeProvider.parameters['id'])).first;
+  }
+}
+
+@Controller(
+    selector: '[contact-add]',
+    publishAs: 'contactAdd'
+)
+class ContactAdd {
+  Contact contact = new Contact(null, "","","","");
 }
 
 /*

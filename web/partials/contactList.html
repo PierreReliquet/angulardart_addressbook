@@ -1,0 +1,25 @@
+<div class="row" contact-list>
+    <div class="span4" >
+        <div class="well">
+            <h2>Contacts</h2>
+
+            <form class="form-search">
+                <div class="input-append">
+                    <input type="text" class="input-medium search-query" ng-model="search">
+                    <button type="submit" class="btn"><i class="icon-search"></i> Search</button>
+                </div>
+            </form>
+            <p>Searching for {{search}}</p>
+
+            <ul class="unstyled">
+              <li ng-repeat="contact in contactList.contacts | doSearch:search | orderBy:'lastName'"><a href="#/edit/{{contact.id}}">{{contact.firstName}} {{contact.lastName | uppercase}}</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="span8">
+        <div class="row">
+            <vcard contact="contact" ng-repeat="contact in contactList.contacts | doSearch:search | orderBy:'lastName'"></vcard>
+        </div>
+    </div>
+</div>
