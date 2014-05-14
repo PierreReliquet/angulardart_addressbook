@@ -3,7 +3,7 @@
         <div class="well">
             <h2>Edit contact</h2>
 
-            <form action="" method="post" class="form-horizontal">
+            <form ng-submit="contactEdit.update()" class="form-horizontal">
                 <div class="control-group">
                     <label for="firstName" class="control-label">First name</label>
 
@@ -35,7 +35,7 @@
                 <div class="control-group">
                     <div class="controls">
                         <input type="submit" value="Save" class="btn btn-primary"/>
-                        <input type="button" value="Cancel" class="btn btn-link"/>
+                        <a href="#/list" class="btn btn-link">Cancel</a>
                     </div>
                 </div>
             </form>

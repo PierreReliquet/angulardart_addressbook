@@ -2,6 +2,8 @@ import 'package:angular/application_factory.dart';
 import 'package:angular/angular.dart';
 import 'dart:html' as dom;
 
+//TODO split that file into many smaller
+
 void main() {
   applicationFactory()
       // Here we are just declaring an inline module using the .. notation which gonna contains all the services
@@ -90,7 +92,11 @@ class ContactEdit {
   RouteProvider routeProvider;
 
   ContactEdit(this.contactService, this.routeProvider) {
-    contact = contactService.contacts.where((Contact c) => c.id == int.parse(routeProvider.parameters['id'])).first;
+    contact = contactService.findById(routeProvider.parameters['id']);
+  }
+
+  void update() {
+    contactService.update(contact);
   }
 }
 
@@ -100,6 +106,13 @@ class ContactEdit {
 )
 class ContactAdd {
   Contact contact = new Contact(null, "","","","");
+  ContactService _contactService;
+
+  ContactAdd(this._contactService);
+
+  void save() {
+    _contactService.add(contact);
+  }
 }
 
 /*
@@ -167,9 +180,25 @@ class ContactService {
                               new Contact(4, "Storm", "Johnny", "Baxter building, New York","555-TORCH" ),
                               new Contact(5, "Grimm", "Benjamin", "Baxter building, New York","555-THING" ),
                               new Contact(6, "Murdock", "Matt", "San Francisco","555-DARDVL" ),
-                              new Contact(7, "Start", "Tony", "Stark tower, New York","555-IRNMAN" )];
+                              new Contact(7, "Stark", "Tony", "Stark tower, New York","555-IRNMAN" )];
 
   List<Contact> get contacts => _contacts;
+
+  Contact findById(String id) => _contacts.where((Contact c) => c.id == int.parse(id)).first;
+
+  int add(Contact c) {
+    c.id = _contacts.length;
+    _contacts.add(c);
+    return c.id;
+  }
+
+  void update(Contact c) {
+    Contact inDB = contacts.where((Contact it) => c.id == it.id).single;
+    inDB.firstName = c.firstName;
+    inDB.lastName = c.lastName;
+    inDB.phone = c.phone;
+    inDB.address = c.address;
+  }
 }
 
 /**

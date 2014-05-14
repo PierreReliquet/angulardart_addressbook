@@ -5,4 +5,5 @@ description: An address book developped with AngularDart to show how rapidly we 
 dependencies:
   angular: 0.11.0
   browser: any
+  js: any
   shadow_dom: any
