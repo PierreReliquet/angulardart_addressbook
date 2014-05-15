@@ -1,0 +1,13 @@
+part of controllers;
+
+@Controller(
+    selector: '[contact-edit]',
+    publishAs: 'contactEdit'
+)
+class ContactEdit extends AbstractContactCtrl {
+  ContactEdit(ContactService contactService, RouteProvider routeProvider) : super(contactService, routeProvider);
+
+  void update() {
+    contactService.update(contact);
+  }
+}

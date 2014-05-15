@@ -1,0 +1,17 @@
+part of controllers;
+
+/**
+ * Here we are defining an abstract controller which could be shared
+ * accross many controllers to demonstrate that we can easily
+ * construct a class based inheritance also for controllers.
+ */
+class AbstractContactCtrl {
+  Contact contact;
+  ContactService contactService;
+  RouteProvider routeProvider;
+
+  AbstractContactCtrl(this.contactService, this.routeProvider) {
+    contact = contactService.findById(routeProvider.parameters['id']);
+  }
+
+}

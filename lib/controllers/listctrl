@@ -1,0 +1,29 @@
+part of controllers;
+
+/**
+ * The controller which takes the data to display from the service and make them
+ * available to the view
+ */
+/*
+ * The controller annotation has been removed and should be replaced with component
+ * if I truly understand the story ... weird come back later on it.
+ * @TODO check that story of deprecated controller
+ */
+@Controller(
+    selector: '[contact-list]',
+    publishAs: 'contactList'
+)
+class ContactList {
+  List contacts;
+  String search = "";
+  ContactService contactService;
+
+  ContactList(this.contactService) {
+    contacts = contactService.contacts;
+  }
+
+  bool doSearch(Contact contact) {
+    return contact.firstName.toLowerCase().contains(search.toLowerCase()) ||
+        contact.lastName.toLowerCase().contains(search.toLowerCase());
+  }
+}

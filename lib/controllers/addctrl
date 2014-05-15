@@ -1,0 +1,17 @@
+part of controllers;
+
+
+@Controller(
+    selector: '[contact-add]',
+    publishAs: 'contactAdd'
+)
+class ContactAdd {
+  Contact contact = new Contact(null, "","","","");
+  ContactService _contactService;
+
+  ContactAdd(this._contactService);
+
+  void save() {
+    _contactService.add(contact);
+  }
+}
