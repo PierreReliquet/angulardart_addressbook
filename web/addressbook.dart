@@ -20,9 +20,19 @@ void addressBookRouter(Router router, RouteViewFactory views) {
     'add': ngRoute(
         path:'/add',
         view: 'partials/contactAdd.html'),
-    'edit': ngRoute(
-          path: '/edit/:id',
-          view: 'partials/contactEdit.html'),
+    'contact': ngRoute(
+          path: '/contact/:id',
+          // TODO based those two views on one single view parameterized, but is that cleaner ??
+          mount: {
+            'edit': ngRoute(
+                path: '/edit',
+                view: 'partials/contactEdit.html'
+            ),
+            'view': ngRoute(
+                path: '/view',
+                view: 'partials/contactView.html'
+            )
+          }),
     'list': ngRoute(
         path: '/list',
         view: 'partials/contactList.html',
@@ -82,18 +92,29 @@ class ContactList {
   }
 }
 
-@Controller(
-    selector: '[contact-edit]',
-    publishAs: 'contactEdit'
-)
-class ContactEdit {
+
+/**
+ * Here we are defining an abstract controller which could be shared
+ * accross many controllers to demonstrate that we can easily
+ * construct a class based inheritance also for controllers.
+ */
+class AbstractContactCtrl {
   Contact contact;
   ContactService contactService;
   RouteProvider routeProvider;
 
-  ContactEdit(this.contactService, this.routeProvider) {
+  AbstractContactCtrl(this.contactService, this.routeProvider) {
     contact = contactService.findById(routeProvider.parameters['id']);
   }
+
+}
+
+@Controller(
+    selector: '[contact-edit]',
+    publishAs: 'contactEdit'
+)
+class ContactEdit extends AbstractContactCtrl {
+  ContactEdit(ContactService contactService, RouteProvider routeProvider) : super(contactService, routeProvider);
 
   void update() {
     contactService.update(contact);
