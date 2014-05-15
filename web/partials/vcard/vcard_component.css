@@ -2,10 +2,7 @@
     position:relative;
     float: left;
     margin-bottom: 20px;
-}
-
-.span4 {
-  width: 50%;
+    width: 40%;
 }
 
 .contact-card .contact-card-inner {
