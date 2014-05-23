@@ -19,7 +19,7 @@
 
     <div class="span8">
         <div class="row">
-            <vcard contact="contact" ng-repeat="contact in contactList.contacts | doSearch:search | orderBy:'lastName'"></vcard>
+            <vcard contact="contact" ng-repeat="contact in contactList.contacts | doSearch:contactList.search | orderBy:'lastName'"></vcard>
         </div>
     </div>
 </div>

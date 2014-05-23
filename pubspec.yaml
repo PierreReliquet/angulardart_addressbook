@@ -10,8 +10,7 @@ dependencies:
 transformers:
 - angular:
     html_files:
-    - web/partials/vcard/vcard_component.html
-    - web/partials/contactAdd.html
-    - web/partials/contactEdit.html
-    - web/partials/contactList.html
-    - web/partials/contactView.html
+    - web/partials/add.html
+    - web/partials/edit.html
+    - web/partials/list.html
+    - web/partials/view.html

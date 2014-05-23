@@ -8,8 +8,6 @@ import "package:angulardart_addressbook/formatters.dart";
 import "package:angulardart_addressbook/routing.dart";
 import "package:angulardart_addressbook/services.dart";
 
-//TODO split that file into many smaller
-
 void main() {
   applicationFactory()
       // Here we are just declaring an inline module using the .. notation which gonna contains all the services
@@ -23,9 +21,6 @@ void main() {
 
 /**
  * The address book module contains the controllers, formatter and components.
- *
- * IMHO at least the components should be in another library with the Contact class
- * to provide reusable components
  */
 class AddressBook extends Module {
   AddressBook() {
